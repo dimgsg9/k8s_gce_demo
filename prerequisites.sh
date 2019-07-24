@@ -31,6 +31,13 @@ case $OSTYPE in
     exit 126
 esac
 
+if [[ -z $1 ]]; then
+  echo -e "${MSG_ERROR} Please specify your GCP Project ID as first parameter."
+  exit 0
+fi
+
+GCP_PROJECT_ID=$1
+
 function gce_api_setup() {
   # Login to G Cloud
   gcloud auth login
@@ -40,17 +47,20 @@ function gce_api_setup() {
     gcloud auth application-default login
     if [[ $? -eq 0 ]]; then
       # Enable GCE instance group manager API
+      gcloud config set project $GCP_PROJECT_ID
       gcloud services enable replicapool.googleapis.com
       if [[ $? -eq 0 ]]; then
-        echo -e "\n\n${YELLOW}===================== ${GREEN}All set. You're good to go! ${YELLOW}=====================\n\n"
+        echo -e "\n\n===================== ${GREEN}All set. You're good to go! ${NC}=====================\n\n"
       else
         exit $?
       fi
     else
       echo -e "${MSG_ERROR} Something went wrong whilte trying to authenticate to GCE API."
+      exit $?
     fi
   else
     echo -e "${MSG_ERROR} Something went wrong while trying to authenticate you in Google Cloud Platform."
+    exit $?
   fi
 }
 
@@ -117,6 +127,16 @@ else
   
   if [[ $gcloud_alpha != "alpha" ]] && [[ $gcloud_beta != "beta" ]]; then
     gce_api_setup
+    if [[ $? -eq 0 ]]; then
+      echo "Would you like to proceed further to prepare Kubernetes setup tools? [Y]/n"
+      read -r confirm
+      if [[ "${confirm}" =~ ^[nN]$ ]]; then
+        echo "Aborting."
+        exit 0
+      fi
+      KUBERNETES_RELEASE="v1.15.1" KUBERNETES_SKIP_CONFIRM=true KUBERNETES_SKIP_CREATE_CLUSTER=true ./getk8s.sh
+    else
+      echo -e "${MSG_ERROR} An error occured while preparing your GCP Project for Kubernetes installation."
+    fi
   fi
 fi
-
