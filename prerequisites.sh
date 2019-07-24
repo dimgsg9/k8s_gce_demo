@@ -23,11 +23,11 @@ case $OSTYPE in
     ;;
   "cygwin")
     os_name="Cygwin"
-    echo "Detected using cygwin. That\'s going to be fun."
+    echo "Detected using cygwin. That's going to be fun."
     ;;
   "freebsd"*)
     os_name="FreeBSD"
-    echo "That's hardcore mate. I\'m not sure it will work in FreeBSD."
+    echo "That's hardcore mate. I'm not sure it will work in FreeBSD."
     exit 126
 esac
 
@@ -128,7 +128,7 @@ else
   if [[ $gcloud_alpha != "alpha" ]] && [[ $gcloud_beta != "beta" ]]; then
     gce_api_setup
     if [[ $? -eq 0 ]]; then
-      echo "Would you like to proceed further to prepare Kubernetes setup tools? [Y]/n"
+      echo "Would you like to proceed further and download Kubernetes setup tools? ${YELLOW}[Y]/n${NC}"
       read -r confirm
       if [[ "${confirm}" =~ ^[nN]$ ]]; then
         echo "Aborting."
