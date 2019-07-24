@@ -56,6 +56,11 @@ It may take some time for load balancer created by ingress controller to start s
 ## Installing helm via autoinstaller (given I don't know what OS you're using)
 `curl -L https://git.io/get_helm.sh | bash`
 
-`helm init --history-max 200`
+`kubectl apply -f helm_setup/rbac_setup.yaml`
 
+`helm init --service-account tiller --tiller-namespace development --history-max 200`
 
+## Integrating GitLab CI
+`kubectl apply -f gitlab_setup/gitlab_admin_sa.yaml`
+
+`
