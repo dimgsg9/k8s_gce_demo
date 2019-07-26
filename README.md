@@ -63,4 +63,25 @@ It may take some time for load balancer created by ingress controller to start s
 ## Integrating GitLab CI
 `kubectl apply -f gitlab_setup/gitlab_admin_sa.yaml`
 
-`
+### Register Kubernetes cluster in GitLab
+In my case I registered Kubernetes cluster (make sure you also have account in docker hub to host public repository for application image).
+
+Create Gitlab service account, custom role and corresponding roleBinding (all provided)
+
+Mention basic cluster settings:
+1) Env scope: *
+2) Base domain: ''
+3) Don't install Gitlab managed applications
+4) Set *Project namespace* as `development`
+5) Select *RBAC-enabled cluster*
+6) Select *GitLab-managed cluster*
+
+### Docker registry account
+
+You will need one to store docker image produced by GitLab CI build job.
+
+### Configure variables in Gitlab pipepine (more details in separate ready)
+
+### Play around with CI pipeline by modifying something inside assets/index.html
+
+*Don't forget to point any application sample domain name to a public IP of the GCP load balancer created by ingress controller (you can find it in GCP console). I've just added a temporary record into my `hosts` file and pointed test domain like demo-guestbook.net to that public IP.
