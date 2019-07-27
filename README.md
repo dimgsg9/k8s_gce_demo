@@ -28,7 +28,7 @@ https://medium.com/@timmykko/using-openssl-library-with-macos-sierra-7807cfd4789
 And yeas, *md5sum* is not available in OSX by default, so better to resolve it like so:
 `brew install md5sha1sum`
 
-When deploying the cluster it will ask you for your SSH key passphrase many many time (a little annoying), so if has been set you will need to key in passphrase a number of times. Take it easy huh :)
+When deploying the cluster it will ask you for your SSH key passphrase many many time (a little annoying), so if it has been set you will need to key in passphrase a number of times. Take it easy huh :)
 
 While running `prerequisites.sh` script it will open your web browser and redirect to oauth2 GCP page. Don't be scared. It's not a scam.
 
