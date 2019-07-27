@@ -1,6 +1,6 @@
 # Kind of a doco
 
-I assume if you follow these instructions attentively and I haven't messed up anything you snould be able to achieve the following:
+I assume if you follow these instructions attentively and I haven't messed up anything you should be able to achieve the following:
 
 * Deploy Kubernetes cluster into the predefined GCP project and region.
 * Setup Helm.
