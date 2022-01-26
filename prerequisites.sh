@@ -128,13 +128,13 @@ else
   if [[ $gcloud_alpha != "alpha" ]] && [[ $gcloud_beta != "beta" ]]; then
     gce_api_setup
     if [[ $? -eq 0 ]]; then
-      echo "Would you like to proceed further and download Kubernetes setup tools? ${YELLOW}[Y]/n${NC}"
+      echo "Would you like to proceed further and download Kubernetes setup tools? [Y]/n"
       read -r confirm
       if [[ "${confirm}" =~ ^[nN]$ ]]; then
         echo "Aborting."
         exit 0
       fi
-      KUBERNETES_RELEASE="v1.15.1" KUBERNETES_SKIP_CONFIRM=true KUBERNETES_SKIP_CREATE_CLUSTER=true ./getk8s.sh
+      KUBERNETES_RELEASE="v1.17.5" KUBERNETES_SKIP_CONFIRM=true KUBERNETES_SKIP_CREATE_CLUSTER=true ./getk8s.sh
     else
       echo -e "${MSG_ERROR} An error occured while preparing your GCP Project for Kubernetes installation."
     fi
